@@ -15,8 +15,9 @@ from pathlib import Path
 import pydqt
 from pydqt import env_edit
 from utils import load_local_data
+from streamlit_extras.app_logo import add_logo
 
-
+add_logo("mtv_logo_bw.png",height=90)
 st.markdown('''
     <h1>Upload Your Custom Data</h1>
                         

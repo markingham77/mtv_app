@@ -15,10 +15,11 @@ from pathlib import Path
 import pydqt
 from pydqt import env_edit
 from utils import load_local_data, instantiate_initial_state, save_value, get_value
-
+from streamlit_extras.app_logo import add_logo
 
 
 st.set_page_config(page_title="Timeseries Data Viewer",layout="wide")
+add_logo("mtv_logo_bw.png",height=90)
 # st.title('Multi-Dimensional Data Viewer (MD<sup>2</sup>V)')
 st.markdown('''
     <h3>Facet plots of various metrics across specfied dimensions</h3>
