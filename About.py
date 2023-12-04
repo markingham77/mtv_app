@@ -16,16 +16,15 @@ import pydqt
 from pydqt import env_edit
 from utils import load_local_data, instantiate_initial_state
 from streamlit_extras.app_logo import add_logo
+from streamlit_js_eval import streamlit_js_eval
 
 st.set_page_config(page_title="Metric Tree Viewer",layout="wide")
 add_logo("mtv_logo_bw.png",height=90)
 
-
-# st.title('Multi-Dimensional Data Viewer (MD<sup>2</sup>V)')
 st.markdown('''
 # MTV - Metric Tree Viewer
 
-A Streamlit app which allows you to look at the various metrics which feed into Net Commission:
+A Streamlit app which looks at the various metrics that feed into Net Commission:
 
 - Session Counts
 - Lead Generation Rate (LGR)
