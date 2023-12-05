@@ -16,6 +16,48 @@ import pydqt
 from pydqt import env_edit
 
 
+def load_sql_data(freq='month'):
+    key = f'data_{freq}'
+    if key not in st.session_state:
+        q=pydqt.Query(f'''
+            select * from core_wip.timeseries_{ freq }
+            join core_wip.timeseries_lookup
+            using (series_id)
+            ;
+            ''',
+            freq=freq
+        )
+        q.load()
+
+        # explode split_values
+        cols = q.df['SPLITS'].values[0].split(',')
+        df=q.df
+        df[cols] = q.df['SPLIT_VALUES'].str.split(',',expand=True)
+        columns = ['PERIOD_DS'] +  cols + ['METRIC','VALUE']
+        df = df[columns]
+        df = df.set_index(['PERIOD_DS'] +  cols)
+        df = df.pivot(columns='METRIC',values='VALUE').reset_index()
+        df.columns.name=''
+        columns = df.columns
+        new_columns=[]
+        for c in columns:
+            if c=='BUY2PI_RATE':
+                new_columns.append('CONVERSION_RATE')
+            elif c=='PI2SESSION_RATE':
+                new_columns.append('LEAD_GEN_RATE')
+            else:
+                new_columns.append(c)
+        df.columns = new_columns       
+        df['PI_COUNT'] = df['LEAD_GEN_RATE']*df['SESSION_COUNT']/100
+        df.columns.name=''
+
+        st.session_state[key] = df
+    else:
+        df = st.session_state[key]
+    return df
+
+
+
 def load_local_data(freq='month'):
     key = f'data_{freq}'
     if key not in st.session_state:

@@ -14,7 +14,7 @@ from dateutil.parser import parse
 from pathlib import Path
 import pydqt
 from pydqt import env_edit
-from utils import load_local_data, instantiate_initial_state, save_value, get_value
+from utils import load_sql_data, load_local_data, instantiate_initial_state, save_value, get_value
 from streamlit_extras.app_logo import add_logo
 from streamlit_js_eval import streamlit_js_eval
 
@@ -57,18 +57,18 @@ quantitative_columns=[]
 date_columns=[]
 other_columns=[]
 @st.cache_data
-def load_sql_data():
+def load_sql_data(freq='month'):
     """
     loads data via 'teimseries.sql' tempalte and tben expands the comma-delimited
     lists of splits and split_values (one coloumn for each split)
     """
 
-    q = pydqt.Query("""
-    select * from core_wip.timeseries_month
+    q = pydqt.Query(f'''
+    select * from core_wip.timeseries_{freq}
     join core_wip.timeseries_lookup
     using (series_id)
     ;
-    """)
+    ''')
     try:
         q.load()
     except:
@@ -97,8 +97,9 @@ def load_sql_data():
     df.columns.name=''
     return df
 
-# load_local_data = st.session_state['load_local_data']
-data=load_local_data()
+# @st.cache_data
+data=load_sql_data()
+
 
 column_type_df = pd.DataFrame(columns=['Field', 'Date', 'Categorical', 'Quantitative', 'Other'])
 for c in column_type_df.columns:
