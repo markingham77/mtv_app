@@ -64,5 +64,5 @@ def save_and_toggle(login,role):
     else:
         st.session_state.disabled = True         
 login = credentials.text_input('login',dblogin,help='Your Snowflake login (usually your email)', on_change=disable, args=(False,))
-role = credentials.text_input('role',dblogin, help='Your role (this scopres out your privileges)', on_change=disable, args=(False,))
+role = credentials.text_input('role',dbrole, help='Your role (this scopres out your privileges)', on_change=disable, args=(False,))
 credentials.button('Save',disabled = st.session_state.disabled, on_click=save_and_toggle,args=(login,role))
