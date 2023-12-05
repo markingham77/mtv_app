@@ -17,6 +17,7 @@ import pydqt
 from pydqt import env_edit
 from utils import load_sql_data,load_local_data, instantiate_initial_state, save_value, get_value
 from streamlit_extras.app_logo import add_logo
+from streamlit_sortables import sort_items
 
 st.set_page_config(page_title="Timeseries Data Viewer",layout="wide")
 add_logo("mtv_logo_bw.png",height=90)
@@ -70,8 +71,12 @@ period_chosen = st.sidebar.selectbox("Period",data['PERIOD_DS'].unique())
 tab_cols = ['SESSIONS','PURCHASE INTENTS', 'ORDERS']
 tab_colours = ['Lead Generation Rate', 'Track Conversion Rate', 'AOV']
 
-tabs = st.tabs(tab_cols)
+original_items = ['REGION', 'TRAFFIC_SOURCE','LANDING_PAGE','USERSHIP']
 
+st.markdown('###### change ordering of tree')
+tree_map_cols = sort_items(original_items)
+
+tabs = st.tabs(tab_cols)
 for i,tab in enumerate(tabs):
     # tab.plotly_chart(fig, theme="streamlit", use_container_width=True)
     
@@ -85,7 +90,7 @@ for i,tab in enumerate(tabs):
     plot_df[tab_colours[i]][plot_df[tab_colours[i]]<q_low]=q_low
     plot_df[tab_colours[i]][plot_df[tab_colours[i]]>q_high]=q_high
     
-    fig = px.treemap(plot_df, path=[px.Constant("WORLD"), 'REGION', 'TRAFFIC_SOURCE','LANDING_PAGE','USERSHIP'],
+    fig = px.treemap(plot_df, path=[px.Constant("WORLD")] + tree_map_cols,
                     values=tab_cols[i]
                     ,color=tab_colours[i]
                     ,color_continuous_scale='RdBu'
