@@ -15,7 +15,7 @@ from pathlib import Path
 import pydqt
 from pydqt import env_edit
 
-
+@st.cache_data(persist="disk")
 def load_sql_data(freq='month'):
     key = f'data_{freq}'
     if key not in st.session_state:

@@ -60,7 +60,7 @@ st.markdown('''
                         
             ''',unsafe_allow_html=True)
 
-
+data['PERIOD_DS'] = data['PERIOD_DS'].dt.date
 period_chosen = st.sidebar.selectbox("Period",data['PERIOD_DS'].unique())
 
 # tab_cols = []
