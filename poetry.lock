@@ -1497,13 +1497,13 @@ jupyter = ["ipykernel (>=5.1.2)", "ipython (>=5.8.0)", "ipywidgets (>=7,<8)", "t
 
 [[package]]
 name = "pydqt"
-version = "1.0.1"
+version = "1.0.3"
 description = "A package to help parameterise and macrofy sql queries"
 optional = false
 python-versions = ">=3.11,<3.13"
 files = [
-    {file = "pydqt-1.0.1-py3-none-any.whl", hash = "sha256:f8dfb5ce526f4d16c6fc032b70704fc7d4273fc8e9f58651a3f8fd6b036adba2"},
-    {file = "pydqt-1.0.1.tar.gz", hash = "sha256:6c288fc94dfeb2a00f42b4fe41f78e78a096a9188ac1dcde08717e31914bd8ec"},
+    {file = "pydqt-1.0.3-py3-none-any.whl", hash = "sha256:2165e1a581d7c8019d87a938db55b83d97d2d426b5032ee2990a464466abdb87"},
+    {file = "pydqt-1.0.3.tar.gz", hash = "sha256:6e1b9a112188d403d4fd61ebec4a573bcf75888fe2eecaaa87cbabfbac13ee1d"},
 ]
 
 [package.dependencies]
@@ -2431,4 +2431,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.13"
-content-hash = "1ac3d00cc1acf560ff73598d0da69ffae258dbb349dd80d03d72c21691377059"
+content-hash = "9496807bc7458a698cbe8e5ae467576bcc4abed8d4ff76f5de1f355c2d6894fa"

@@ -44,4 +44,10 @@ MTV consists of various sub-apps which allow you to analyse the above metric acr
 
 - Data Table
     - table of raw data with multiple controls to drill down and summarise            
+
+### How to get started                        
+You start by selecting the dimensions along which you want to split the metrics - this is done in "Load Data" in the sidebar.
+Pre-computed aggregates exists for all possible 2<sup style='font-size:.8em;'>n</sup> combinations of dimensions at the monthly and annual frequency.  Aggregates are 
+derived from session level data.
 ''',unsafe_allow_html=True)
+
