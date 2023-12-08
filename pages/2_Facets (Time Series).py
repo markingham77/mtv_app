@@ -14,7 +14,8 @@ from dateutil.parser import parse
 from pathlib import Path
 import pydqt
 from pydqt import env_edit
-from utils import load_sql_data, load_local_data, instantiate_initial_state, save_value, get_value
+# from utils import load_sql_data, instantiate_initial_state, save_value, get_value
+import db
 from streamlit_extras.app_logo import add_logo
 from streamlit_js_eval import streamlit_js_eval
 
@@ -56,49 +57,8 @@ categorical_columns=[]
 quantitative_columns=[]
 date_columns=[]
 other_columns=[]
-# @st.cache_data(persist="disk")
-# def load_sql_data(freq='month'):
-#     """
-#     loads data via 'teimseries.sql' tempalte and tben expands the comma-delimited
-#     lists of splits and split_values (one coloumn for each split)
-#     """
 
-#     q = pydqt.Query(f'''
-#     select * from core_wip.timeseries_{freq}
-#     join core_wip.timeseries_lookup
-#     using (series_id)
-#     ;
-#     ''')
-#     try:
-#         q.load()
-#     except:
-#         env_edit()    
-#         q.load()
-#     cols = q.df['SPLITS'].values[0].split(',')
-#     df=q.df
-#     df[cols] = q.df['SPLIT_VALUES'].str.split(',',expand=True)
-#     columns = ['PERIOD_DS'] +  cols + ['METRIC','VALUE']
-#     df = df[columns]
-#     df = df.set_index(['PERIOD_DS'] +  cols)
-#     df = df.pivot(columns='METRIC',values='VALUE').reset_index()
-#     df.columns.name=''
-#     # df.to_csv(loc,index=False)
-#     columns = df.columns
-#     new_columns=[]
-#     for c in columns:
-#         if c=='BUY2PI_RATE':
-#             new_columns.append('CONVERSION_RATE')
-#         elif c=='PI2SESSION_RATE':
-#             new_columns.append('LEAD_GEN_RATE')
-#         else:
-#             new_columns.append(c)
-#     df.columns = new_columns       
-#     df['PI_COUNT'] = df['LEAD_GEN_RATE']*df['SESSION_COUNT']/100
-#     df.columns.name=''
-#     return df
-
-# @st.cache_data
-data=load_sql_data()
+data=db.load_sql_data()
 
 
 column_type_df = pd.DataFrame(columns=['Field', 'Date', 'Categorical', 'Quantitative', 'Other'])

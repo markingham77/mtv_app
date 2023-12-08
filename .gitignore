@@ -1,2 +1,3 @@
 *.pyc
 notebooks/*
+.DS_Store

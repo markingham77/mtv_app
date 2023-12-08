@@ -15,7 +15,8 @@ from dateutil.parser import parse
 from pathlib import Path
 import pydqt
 from pydqt import env_edit
-from utils import load_sql_data,load_local_data, instantiate_initial_state, save_value, get_value
+# from utils import load_sql_data,load_local_data, instantiate_initial_state, save_value, get_value
+import db
 from streamlit_extras.app_logo import add_logo
 from streamlit_sortables import sort_items
 
@@ -27,8 +28,7 @@ if frequency_chosen == 'Annual':
     freq='year'
 else:
     freq='month'    
-orig_data=load_sql_data(freq)
-# orig_data=load_local_data(freq)
+orig_data=db.load_sql_data(freq)
 data=orig_data.copy()
 
 try:
@@ -61,7 +61,7 @@ st.markdown('''
                         
             ''',unsafe_allow_html=True)
 
-data['PERIOD_DS'] = data['PERIOD_DS'].dt.date
+# data['PERIOD_DS'] = data['PERIOD_DS'].dt.date
 period_chosen = st.sidebar.selectbox("Period",data['PERIOD_DS'].unique())
 
 # tab_cols = []

@@ -14,7 +14,8 @@ from dateutil.parser import parse
 from pathlib import Path
 import pydqt
 from pydqt import env_edit
-from utils import load_local_data, instantiate_initial_state, save_value, get_value
+# from utils import load_local_data, instantiate_initial_state, save_value, get_value
+import db
 from streamlit_extras.app_logo import add_logo
 
 st.set_page_config(page_title="Timeseries Data Viewer",layout="wide")
@@ -107,7 +108,8 @@ if frequency_chosen == 'Annual':
     freq='year'
 else:
     freq='month'    
-orig_data=load_local_data(freq)
+# orig_data=load_local_data(freq)
+orig_data=db.load_sql_data(freq)
 data=orig_data.copy()
 
 freeze_columns = st.sidebar.multiselect("Fix Columns",data.columns, default='PERIOD_DS')

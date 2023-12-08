@@ -15,7 +15,7 @@ from dateutil.parser import parse
 from pathlib import Path
 import pydqt
 from pydqt import env_edit, set_snowflake_credentials
-from utils import load_local_data, instantiate_initial_state, save_value, get_value
+# from utils import load_local_data, instantiate_initial_state, save_value, get_value
 from streamlit_extras.app_logo import add_logo
 from streamlit_sortables import sort_items
 

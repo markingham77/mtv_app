@@ -14,7 +14,7 @@ from dateutil.parser import parse
 from pathlib import Path
 import pydqt
 from pydqt import env_edit
-from utils import load_local_data, instantiate_initial_state
+# from utils import load_local_data, instantiate_initial_state
 from streamlit_extras.app_logo import add_logo
 from streamlit_js_eval import streamlit_js_eval
 
