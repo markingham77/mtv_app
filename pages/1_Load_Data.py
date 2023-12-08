@@ -13,9 +13,6 @@ from pandas.api.types import (
 )
 from dateutil.parser import parse
 from pathlib import Path
-import pydqt
-from pydqt import env_edit, set_snowflake_credentials
-# from utils import load_local_data, instantiate_initial_state, save_value, get_value
 from streamlit_extras.app_logo import add_logo
 from streamlit_sortables import sort_items
 
@@ -46,23 +43,24 @@ sorted_items = sort_items(original_items, multi_containers=True)
 st.session_state.dimensions = sorted_items[1]['items']
 
 credentials = st.sidebar.expander('Snowflake Credentials', expanded=False)
-dblogin=''
-if "SNOWFLAKE_LOGIN" in os.environ:
-    dblogin = os.environ["SNOWFLAKE_LOGIN"]    
-dbrole=''
-if "SNOWFLAKE_LOGIN" in os.environ:
-    dbrole = os.environ["SNOWFLAKE_ROLE"]
+login=''
+if "login" not in st.session_state:
+    st.session_state.login=login
+role=''
+if "role" not in st.session_state:
+    st.session_state.role=role
 
 if "disabled" not in st.session_state:
     st.session_state.disabled = True
 def disable(a):
     st.session_state["disabled"] = a
 def save_and_toggle(login,role):
-    set_snowflake_credentials(login=login, role=role)
+    st.session_state.login=login
+    st.session_state.role=role
     if st.session_state.disabled:
         st.session_state.disabled = False
     else:
         st.session_state.disabled = True         
-login = credentials.text_input('login',dblogin,help='Your Snowflake login (usually your email)', on_change=disable, args=(False,))
-role = credentials.text_input('role',dbrole, help='Your role (this scopres out your privileges)', on_change=disable, args=(False,))
+login = credentials.text_input('login',login,help='Your Snowflake login (usually your email)', on_change=disable, args=(False,))
+role = credentials.text_input('role',role, help='Your role (this scopres out your privileges)', on_change=disable, args=(False,))
 credentials.button('Save',disabled = st.session_state.disabled, on_click=save_and_toggle,args=(login,role))
